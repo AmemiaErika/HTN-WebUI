@@ -6,8 +6,8 @@
 - 拆解模型可选：Gemini/Banana、OpenAI Vision、Claude Vision、Ensemble 多模型合并、Mock
 - 生成单物件三视图
 - 素材入库
-- 选择素材组合生成概念图
-- 上传草图并细化
+- 选择素材组合生成概念图（未实装）
+- 上传草图并细化（未实装）
 - 图像生成模型可选：Gemini/Banana、OpenAI、Mock
 
 ## 1. 安装
