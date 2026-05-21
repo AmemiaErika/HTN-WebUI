@@ -11,13 +11,7 @@
 - 图像生成模型可选：Gemini/Banana、OpenAI （暂时仅支持官方API）
 
 ## 1. 安装
-
-```bash
-cd ai_design_webui
-python -m venv .venv
-source .venv/bin/activate  # Windows 用 .venv\Scripts\activate
-pip install -r requirements.txt
-```
+release 最新版本直接下载并解压
 
 ## 2. 配置 API Key
 
