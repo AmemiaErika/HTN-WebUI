@@ -1,0 +1,11 @@
+.venv/
+__pycache__/
+*.pyc
+
+.env
+data/app_config.json
+
+uploads/
+outputs/
+
+run_webui_log.txt

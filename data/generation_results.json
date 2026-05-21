@@ -1,0 +1,18 @@
+[
+  {
+    "result_id": "result_26315bcd16fc",
+    "type": "three_view",
+    "name": "主角玩偶",
+    "category": "test",
+    "description": "画面中心偏前方的橙黑配色潮玩角色，圆头大眼，猪鼻造型，穿黑色外套，身体短小，表面有塑料玩具质感。",
+    "image_path": "C:\\Users\\D0902\\Downloads\\HTN_webui\\outputs\\mock_three_view_aef76cd4424b.png",
+    "source_image_path": "C:\\Users\\D0902\\Downloads\\HTN_webui\\uploads\\image_cad2bef3d964b8d4c737b719.jpeg",
+    "prompt": "请基于输入参考图中的【主角玩偶】生成概念设计三视图。\n\n定位与拆解依据：\n- 物件名称：主角玩偶\n- 外观描述：画面中心偏前方的橙黑配色潮玩角色，圆头大眼，猪鼻造型，穿黑色外套，身体短小，表面有塑料玩具质感。\n\n请先根据“物件名称 + 外观描述”在原图中准确定位该物件，再进行拆解、补全和三视图生成。\n\n生成要求：\n1. 只保留该物件，不要背景，不要其他物件。\n2. 输出一张完整的三视图设计稿，包含 front view、side view、back view。\n3. 保持外观描述中的颜色、形状、材质感、比例和关键细节。\n4. 保持原图中的设计语言、配色、材质、比例和角色特征。\n5. 对被遮挡或不可见部分进行合理概念补全，但不要改变核心设计。\n6. 使用干净白底，产品设计稿排版。\n7. 不要添加无关文字，只保留极简视图标签即可。",
+    "provider": "mock",
+    "meta": {},
+    "created_at": "2026-05-21T17:06:26",
+    "updated_at": "2026-05-21T17:06:34",
+    "archived": true,
+    "asset_id": "asset_076ab407dddd"
+  }
+]
