@@ -8,7 +8,7 @@
 - 素材入库
 - 选择素材组合生成概念图（未实装）
 - 上传草图并细化（未实装）
-- 图像生成模型可选：Gemini/Banana、OpenAI、Mock
+- 图像生成模型可选：Gemini/Banana、OpenAI （暂时仅支持官方API）
 
 ## 1. 安装
 
