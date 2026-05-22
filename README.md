@@ -33,14 +33,6 @@ release 最新版本直接下载并解压
 data/prompt_settings.json
 ```
 
-可用变量：
-
-```text
-三视图生成：{{object_name}}、{{object_description}}
-组合生成：{{composition_prompt}}、{{time}}、{{lighting}}、{{weather}}、{{style}}、{{camera}}
-草图细化：{{refine_prompt}}
-```
-
 保存后下一次执行对应任务会自动使用新提示词。
 
 ## v1.2：界面调整与 API 输入栏
