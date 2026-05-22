@@ -1,14 +1,12 @@
 # HTN_webUI
 
-这是一个本地运行的 Streamlit 原型，支持：
+这是一个本地运行的 Streamlit 原型，包含以下功能：
 
-- 上传图片并拆解物件 list
-- 拆解模型可选：Gemini/Banana、OpenAI Vision、Claude Vision、Ensemble 多模型合并、Mock
-- 生成单物件三视图
-- 素材入库
-- 选择素材组合生成概念图（未实装）
+- 上传图片并一键拆解出物品list
+- 一键生成物件三视图
+- 三视图素材仓库库
 - 上传草图并细化（未实装）
-- 图像生成模型可选：Gemini/Banana、OpenAI （暂时仅支持官方API）
+- 模型可选：Gemini、ChatGPT、Claude、支持第三方API接口（未测试）
 
 ## 1. 安装
 release 最新版本直接下载并解压
@@ -71,22 +69,6 @@ data/app_config.json
 - 删除底部素材仓库，避免页面过长。
 - 新版 `run_webui.bat` 会显示运行日志，并把错误写入 `run_webui_log.txt`。
 
-### 一键启动
-
-双击项目根目录下的：
-
-```bat
-run_webui.bat
-```
-
-如果窗口仍然一闪而过，请用 CMD 进入项目目录后运行：
-
-```bat
-run_webui.bat
-```
-
-并把 `run_webui_log.txt` 的内容发出来排查。
-
 ## v1.4 更新
 
 - 左侧素材仓库改为可折叠分类菜单。
@@ -95,20 +77,6 @@ run_webui.bat
 - 新增“生成结果”分栏，每张图都会保存对应提示词。
 - 每个生成结果支持“入库 / 保存信息 / 删除”。
 - 生成结果保存到 `data/generation_results.json`。
-
-启动建议使用：
-
-```bat
-start_webui.bat
-```
-
-如果新增依赖没有安装，运行：
-
-```bat
-.venv\Scripts\activate
-pip install -r requirements.txt
-streamlit run app.py
-```
 
 ## v1.5 更新
 
