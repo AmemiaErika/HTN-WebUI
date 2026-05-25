@@ -15,9 +15,9 @@ class OpenAIListAnalyzer(BaseListAnalyzer):
         self.client = OpenAI(api_key=settings.OPENAI_API_KEY)
         self.model = settings.OPENAI_VISION_MODEL
 
-    def analyze_objects(self, image_path: str) -> dict:
+    def analyze_objects(self, image_path: str, prompt_text: str | None = None) -> dict:
         data_url = image_to_data_url(image_path)
-        prompt = object_list_prompt()
+        prompt = prompt_text or object_list_prompt()
         try:
             completion = self.client.chat.completions.create(
                 model=self.model,

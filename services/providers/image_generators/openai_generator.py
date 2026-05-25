@@ -4,7 +4,7 @@ from contextlib import ExitStack
 from typing import Any, Dict, List
 
 from config import settings
-from services.prompt_templates import three_view_prompt, compose_prompt, sketch_refine_prompt
+from services.prompt_templates import three_view_prompt, overview_three_view_prompt, compose_prompt, sketch_refine_prompt
 from services.providers.image_generators.base_generator import BaseImageGenerator
 
 
@@ -34,9 +34,15 @@ class OpenAIImageGenerator(BaseImageGenerator):
                 result = self.client.images.edit(model=self.model, image=image_arg, prompt=prompt)
         return self._save_b64(result.data[0].b64_json, prefix)
 
-    def generate_three_view(self, image_path: str, object_name: str, object_description: str) -> Dict[str, Any]:
-        prompt = three_view_prompt(object_name, object_description)
+    def generate_three_view(self, image_path: str, object_name: str, object_description: str, extra_prompt: str = "", aspect_ratio: str = "自动") -> Dict[str, Any]:
+        prompt = three_view_prompt(object_name, object_description, extra_prompt=extra_prompt, aspect_ratio=aspect_ratio)
         out = self._edit_with_images([image_path], prompt, "openai_three_view")
+        return {"provider": self.name, "image_path": out, "prompt": prompt}
+
+
+    def generate_overview_three_view(self, image_path: str, objects: List[Dict[str, Any]], extra_prompt: str = "", layout: str = "设计板排版", aspect_ratio: str = "自动", split_degree: str = "仅拆分主体物") -> Dict[str, Any]:
+        prompt = overview_three_view_prompt(objects, extra_prompt, layout, aspect_ratio=aspect_ratio, split_degree=split_degree)
+        out = self._edit_with_images([image_path], prompt, "openai_overview_three_view")
         return {"provider": self.name, "image_path": out, "prompt": prompt}
 
     def compose_scene(self, asset_paths: List[str], composition_prompt: str, env_options: Dict[str, Any]) -> Dict[str, Any]:
@@ -47,4 +53,10 @@ class OpenAIImageGenerator(BaseImageGenerator):
     def refine_sketch(self, sketch_path: str, refine_prompt: str) -> Dict[str, Any]:
         prompt = sketch_refine_prompt(refine_prompt)
         out = self._edit_with_images([sketch_path], prompt, "openai_sketch")
+        return {"provider": self.name, "image_path": out, "prompt": prompt}
+
+
+    def edit_images(self, image_paths: List[str], edit_prompt: str, aspect_ratio: str = "自动") -> Dict[str, Any]:
+        prompt = edit_prompt
+        out = self._edit_with_images(image_paths, prompt, "openai_image_edit")
         return {"provider": self.name, "image_path": out, "prompt": prompt}

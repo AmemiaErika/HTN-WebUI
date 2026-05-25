@@ -4,7 +4,7 @@ from typing import Any, Dict, List
 from PIL import Image
 
 from config import settings
-from services.prompt_templates import three_view_prompt, compose_prompt, sketch_refine_prompt
+from services.prompt_templates import three_view_prompt, overview_three_view_prompt, compose_prompt, sketch_refine_prompt
 from services.providers.image_generators.base_generator import BaseImageGenerator
 
 
@@ -39,14 +39,25 @@ class GeminiImageGenerator(BaseImageGenerator):
                     return str(out)
         raise RuntimeError("Gemini 没有返回图片。请调整 prompt 或检查模型权限。")
 
-    def generate_three_view(self, image_path: str, object_name: str, object_description: str) -> Dict[str, Any]:
-        prompt = three_view_prompt(object_name, object_description)
+    def generate_three_view(self, image_path: str, object_name: str, object_description: str, extra_prompt: str = "", aspect_ratio: str = "自动") -> Dict[str, Any]:
+        prompt = three_view_prompt(object_name, object_description, extra_prompt=extra_prompt, aspect_ratio=aspect_ratio)
         image = Image.open(image_path)
         response = self.client.models.generate_content(
             model=self.model,
             contents=[prompt, image],
         )
         out = self._save_first_image(response, "gemini_three_view")
+        return {"provider": self.name, "image_path": out, "prompt": prompt}
+
+
+    def generate_overview_three_view(self, image_path: str, objects: List[Dict[str, Any]], extra_prompt: str = "", layout: str = "设计板排版", aspect_ratio: str = "自动", split_degree: str = "仅拆分主体物") -> Dict[str, Any]:
+        prompt = overview_three_view_prompt(objects, extra_prompt, layout, aspect_ratio=aspect_ratio, split_degree=split_degree)
+        image = Image.open(image_path)
+        response = self.client.models.generate_content(
+            model=self.model,
+            contents=[prompt, image],
+        )
+        out = self._save_first_image(response, "gemini_overview_three_view")
         return {"provider": self.name, "image_path": out, "prompt": prompt}
 
     def compose_scene(self, asset_paths: List[str], composition_prompt: str, env_options: Dict[str, Any]) -> Dict[str, Any]:
@@ -69,4 +80,18 @@ class GeminiImageGenerator(BaseImageGenerator):
             contents=[prompt, image],
         )
         out = self._save_first_image(response, "gemini_sketch")
+        return {"provider": self.name, "image_path": out, "prompt": prompt}
+
+
+    def edit_images(self, image_paths: List[str], edit_prompt: str, aspect_ratio: str = "自动") -> Dict[str, Any]:
+        prompt = edit_prompt
+        contents = [prompt]
+        for p in image_paths:
+            if p:
+                contents.append(Image.open(p))
+        response = self.client.models.generate_content(
+            model=self.model,
+            contents=contents,
+        )
+        out = self._save_first_image(response, "gemini_image_edit")
         return {"provider": self.name, "image_path": out, "prompt": prompt}

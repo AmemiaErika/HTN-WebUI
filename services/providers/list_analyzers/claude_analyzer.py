@@ -15,7 +15,7 @@ class ClaudeListAnalyzer(BaseListAnalyzer):
         self.client = anthropic.Anthropic(api_key=settings.ANTHROPIC_API_KEY)
         self.model = settings.ANTHROPIC_MODEL
 
-    def analyze_objects(self, image_path: str) -> dict:
+    def analyze_objects(self, image_path: str, prompt_text: str | None = None) -> dict:
         image_b64 = image_to_base64(image_path)
         media_type = get_mime_type(image_path)
         message = self.client.messages.create(
@@ -33,7 +33,7 @@ class ClaudeListAnalyzer(BaseListAnalyzer):
                                 "data": image_b64,
                             },
                         },
-                        {"type": "text", "text": object_list_prompt()},
+                        {"type": "text", "text": prompt_text or object_list_prompt()},
                     ],
                 }
             ],

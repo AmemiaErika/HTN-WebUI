@@ -6,5 +6,5 @@ class BaseListAnalyzer(ABC):
     name = "base"
 
     @abstractmethod
-    def analyze_objects(self, image_path: str) -> Dict[str, Any]:
+    def analyze_objects(self, image_path: str, prompt_text: str | None = None) -> Dict[str, Any]:
         pass

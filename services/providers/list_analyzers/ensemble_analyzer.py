@@ -10,11 +10,11 @@ class EnsembleListAnalyzer(BaseListAnalyzer):
         if not self.analyzers:
             self.analyzers = [MockListAnalyzer()]
 
-    def analyze_objects(self, image_path: str) -> dict:
+    def analyze_objects(self, image_path: str, prompt_text: str | None = None) -> dict:
         raw_results = []
         for analyzer in self.analyzers:
             try:
-                raw_results.append(analyzer.analyze_objects(image_path))
+                raw_results.append(analyzer.analyze_objects(image_path, prompt_text=prompt_text))
             except Exception as e:
                 raw_results.append({"provider": analyzer.name, "error": str(e), "objects": []})
 

@@ -16,11 +16,11 @@ class GeminiListAnalyzer(BaseListAnalyzer):
         self.client = genai.Client(api_key=settings.GEMINI_API_KEY)
         self.model = settings.GEMINI_VISION_MODEL
 
-    def analyze_objects(self, image_path: str) -> dict:
+    def analyze_objects(self, image_path: str, prompt_text: str | None = None) -> dict:
         image = Image.open(image_path)
         response = self.client.models.generate_content(
             model=self.model,
-            contents=[object_list_prompt(), image],
+            contents=[prompt_text or object_list_prompt(), image],
         )
         text = getattr(response, "text", None) or ""
         data = extract_json(text)
